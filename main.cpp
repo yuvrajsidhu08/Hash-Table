@@ -41,7 +41,7 @@ void addStudent(Node**& table, int& size, Student* s) {
   n->setNext(table[index]);
   table[index] = n;
 
-   int count = 0;
+  int count = 0;
   Node* current = table[index];
   while (current) {
     count++;
@@ -66,4 +66,39 @@ void print(Node** table, int size) {
       current = current->getNext();
     }
   }
+}
+
+void removeStudent(Node** table, int size, int id) {
+  int index = hashID(id, size);
+
+  Node* curr = table[index];
+  Node* prev = 0;
+
+  while (curr) {
+    if (curr->getStudent()->getID() == id) {
+      if (!prev) table[index] = curr->getNext();
+      else prev->setNext(curr->getNext());
+      delete curr;
+      return;
+    }
+    prev = curr;
+    curr = curr->getNext();
+  }
+}
+
+char** loadNames(const char* file, int& count) {
+  ifstream f(file);
+  char temp[100];
+  count = 0;
+
+  while (f.getline(temp, 100)) count++;
+  f.clear(); f.seekg(0);
+
+  char** names = new char*[count];
+  for (int i = 0; i < count; i++) {
+    f.getline(temp, 100);
+    names[i] = new char[strlen(temp) + 1];
+    strcpy(names[i], temp);
+  }
+  return names;
 }
