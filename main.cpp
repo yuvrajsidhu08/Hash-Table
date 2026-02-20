@@ -43,7 +43,6 @@ void rehash(Node**& table, int& size) {
 void addStudent(Node**& table, int& size, Student* s) {
   int index = hashID(s->getID(), size);
 
-  // Your Node constructor needs 2 parameters
   Node* n = new Node(s, table[index]);
   table[index] = n;
 
@@ -146,6 +145,7 @@ int main() {
     cout << "\nADD PRINT DELETE GENERATE QUIT\n";
     cin >> cmd;
 
+    // Deletes by ID    
     if (!strcmp(cmd, "ADD")) {
       char f[50], l[50];
       float g;
